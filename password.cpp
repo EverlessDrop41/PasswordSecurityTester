@@ -1,11 +1,13 @@
 /*
-	The C++ password security test program.
-	Asks the user for a string and then tests its security
-	checking if it has a number, capital and lower case letter
-	Regex is not used to keep readibility
+The C++ password security test program.
+Asks the user for a string and then tests its security
+checking if it has a number, capital and lower case letter
+Regex is not used to keep readibility
 */
+
 //Include the console I.O. header file
 #include <iostream>
+#include <string>
 //Include the STL character checks
 #include <cctype>
 //Inlcude this program's header file
@@ -15,7 +17,7 @@
 using std::cout;
 using std::cin;
 using std::endl;
-using std::string; //Most modern compilers don't require this, but it's best practice
+using std::string;
 
 string starLine = "***************************************";
 
@@ -35,12 +37,14 @@ int main(int argc, char const *argv[])
 	cout << starLine << endl;
 	cout << "Your password is: " << password << endl;
 	cout << "It has a security rating of: " << ::typesFound(password) << " - "
-			<< getRatingString(typesFound(password)) << endl;
+		<< getRatingString(typesFound(password)) << endl;
+
+	system("pause"); //TODO: REMOVE WHEN NOT IN WINDOWS
 
 	return 0;
 }
 
-bool hasNumber (string word)
+bool hasNumber(string word)
 {
 	for (int i = 0; i < word.length(); i++)
 	{
@@ -52,17 +56,17 @@ bool hasNumber (string word)
 	return false;
 }
 
-bool hasLetterCase (string word, bool LowerCheck)
+bool hasLetterCase(string word, bool LowerCheck)
 {
 	for (int i = 0; i < word.length(); i++)
 	{
 		if (LowerCheck) {
-			if ( islower(word[i]) )
+			if (islower(word[i]))
 				return true;
 		}
 		else
 		{
-			if ( isupper(word[i]) )
+			if (isupper(word[i]))
 				return true;
 		}
 	}
@@ -70,7 +74,7 @@ bool hasLetterCase (string word, bool LowerCheck)
 }
 
 //A function which returns the number of different types of characters found
-int typesFound (string password)
+int typesFound(string password)
 {
 	int types = 0;
 
@@ -82,23 +86,23 @@ int typesFound (string password)
 	if (hasLetterCase(password, true))
 		types++;
 
-	if(hasLetterCase(password, false))
+	if (hasLetterCase(password, false))
 		types++;
 
 	return types;
 }
 
 string getRatingString(int securityRating){
-	switch(securityRating){
-		case 0:
-			return "INSECURE";
-		case 1:
-			return "WEAK";
-		case 2:
-			return "MEDIUM";
-		case 3:
-			return "STRONG";
-		default:
-			return "UNKNOWN";
+	switch (securityRating){
+	case 0:
+		return "INSECURE";
+	case 1:
+		return "WEAK";
+	case 2:
+		return "MEDIUM";
+	case 3:
+		return "STRONG";
+	default:
+		return "UNKNOWN";
 	}
 }
